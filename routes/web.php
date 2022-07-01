@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'index']);
+Route::get('/products/{product}', [HomeController::class, 'showProduct'])->name('product.show')->middleware('auth');
+Route::post('/products/purchase/{product}', [HomeController::class, 'purchase'])->name('product.purchase')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
